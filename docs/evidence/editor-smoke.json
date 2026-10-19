@@ -1,0 +1,109 @@
+{
+  "sublime_version": "4215",
+  "before": [
+    {
+      "uri": "file:///home/xertrov/src/lsp-openplanet-sublime/examples/diagnostics/Main.as",
+      "language_id": "plaintext",
+      "diagnostics": [
+        {
+          "code": "unused-declaration",
+          "data": {
+            "unusedKind": "local variable"
+          },
+          "message": "a local variable `message` is never used (suppress with a leading `_` or a trailing `// lsp: ignore unused` comment)",
+          "range": {
+            "end": {
+              "character": 18,
+              "line": 3
+            },
+            "start": {
+              "character": 11,
+              "line": 3
+            }
+          },
+          "severity": 3,
+          "source": "openplanet-lsp",
+          "tags": [
+            1
+          ]
+        },
+        {
+          "message": "undefined identifier `mesage`",
+          "range": {
+            "end": {
+              "character": 16,
+              "line": 4
+            },
+            "start": {
+              "character": 10,
+              "line": 4
+            }
+          },
+          "severity": 1,
+          "source": "openplanet-lsp"
+        }
+      ]
+    }
+  ],
+  "corrected": [
+    {
+      "uri": "file:///home/xertrov/src/lsp-openplanet-sublime/examples/diagnostics/Main.as",
+      "language_id": "plaintext",
+      "diagnostics": []
+    }
+  ],
+  "final": [
+    {
+      "uri": "file:///home/xertrov/src/lsp-openplanet-sublime/examples/diagnostics/Main.as",
+      "language_id": "plaintext",
+      "diagnostics": [
+        {
+          "code": "unused-declaration",
+          "data": {
+            "unusedKind": "local variable"
+          },
+          "message": "a local variable `message` is never used (suppress with a leading `_` or a trailing `// lsp: ignore unused` comment)",
+          "range": {
+            "end": {
+              "character": 18,
+              "line": 3
+            },
+            "start": {
+              "character": 11,
+              "line": 3
+            }
+          },
+          "severity": 3,
+          "source": "openplanet-lsp",
+          "tags": [
+            1
+          ]
+        },
+        {
+          "message": "undefined identifier `mesage`",
+          "range": {
+            "end": {
+              "character": 16,
+              "line": 4
+            },
+            "start": {
+              "character": 10,
+              "line": 4
+            }
+          },
+          "severity": 1,
+          "source": "openplanet-lsp"
+        }
+      ]
+    },
+    {
+      "uri": "file:///home/xertrov/src/lsp-openplanet-sublime/examples/diagnostics/info.toml",
+      "language_id": "toml",
+      "diagnostics": []
+    }
+  ],
+  "workspace_folders": [
+    "/home/xertrov/src/lsp-openplanet-sublime/examples/diagnostics"
+  ],
+  "result": "PASS"
+}

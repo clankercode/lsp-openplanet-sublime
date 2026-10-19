@@ -80,8 +80,8 @@ class PluginTests(unittest.TestCase):
             ctx = context(str(Path(tmp) / "Main.as"))
             with patch.object(plugin, "discover_server", return_value="/server"):
                 plugin.OpenplanetPlugin.on_pre_start_async(ctx)
-            self.assertEqual(ctx.workspace_folders[0].path, tmp)
-            self.assertEqual(ctx.working_directory, tmp)
+            self.assertEqual(ctx.workspace_folders[0].path, str(Path(tmp).resolve()))
+            self.assertEqual(ctx.working_directory, str(Path(tmp).resolve()))
             self.assertEqual(ctx.configuration.initialization_options, {})
 
     def test_filename_syntax_pairing(self):

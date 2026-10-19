@@ -44,23 +44,29 @@ def later(callback, delay=2500):
     sublime.set_timeout(safe, delay)
 
 
+def require(condition, message):
+    if not condition:
+        raise RuntimeError(message)
+
+
 def begin():
     global SOURCE, WINDOW, ORIGINAL
-    SOURCE = next(v for w in sublime.windows() for v in w.views()
-                  if v.file_name() and v.file_name().endswith('/examples/diagnostics/Main.as'))
+    SOURCE = sublime.active_window().active_view()
+    require(SOURCE.file_name().endswith('/examples/diagnostics/Main.as'), 'Focus Main.as before running smoke test')
     WINDOW = SOURCE.window()
     WINDOW.focus_view(SOURCE)
     ORIGINAL = SOURCE.substr(sublime.Region(0, SOURCE.size()))
     RESULT['sublime_version'] = sublime.version()
     RESULT['before'] = record()
-    assert any(d['message'] == 'undefined identifier `mesage`' for b in RESULT['before'] for d in b['diagnostics'])
+    require(any(d['message'] == 'undefined identifier `mesage`' for b in RESULT['before'] for d in b['diagnostics']), 'Expected initial real diagnostic')
     SOURCE.run_command('openplanet_smoke_replace', {'text': ORIGINAL.replace('print(mesage)', 'print(message)')})
     later(corrected)
 
 
 def corrected():
     RESULT['corrected'] = record()
-    assert not any('mesage' in d['message'] for b in RESULT['corrected'] for d in b['diagnostics'])
+    require(bool(RESULT['corrected']), 'Expected live corrected buffer')
+    require(not any('mesage' in d['message'] for b in RESULT['corrected'] for d in b['diagnostics']), 'Typo diagnostic did not clear')
     SOURCE.run_command('openplanet_smoke_replace', {'text': ORIGINAL})
     manifest = str(Path(SOURCE.file_name()).with_name('info.toml'))
     WINDOW.open_file(manifest)
@@ -73,9 +79,9 @@ def corrected():
 def final():
     from LSP.plugin.core.registry import windows
     RESULT['final'] = record()
-    assert any(b['uri'].endswith('/info.toml') and b['language_id'] == 'toml' for b in RESULT['final'])
-    assert not any(b['uri'].endswith('/lsp-sublime-unrelated.toml') for b in RESULT['final'])
-    assert any(d['message'] == 'undefined identifier `mesage`' for b in RESULT['final'] for d in b['diagnostics'])
+    require(any(b['uri'].endswith('/info.toml') and b['language_id'] == 'toml' for b in RESULT['final']), 'Manifest not attached as TOML')
+    require(not any(b['uri'].endswith('/lsp-sublime-unrelated.toml') for b in RESULT['final']), 'Unrelated TOML attached')
+    require(any(d['message'] == 'undefined identifier `mesage`' for b in RESULT['final'] for d in b['diagnostics']), 'Restored typo diagnostic missing')
     RESULT['workspace_folders'] = [f.path for s in windows.lookup(WINDOW).get_sessions() for f in s.get_workspace_folders()]
     RESULT['result'] = 'PASS'
     OUTPUT.write_text(json.dumps(RESULT, indent=2))

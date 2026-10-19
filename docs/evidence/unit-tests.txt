@@ -1,0 +1,23 @@
+test_default_locations (test_core.DiscoveryTests.test_default_locations) ... ok
+test_explicit_and_path (test_core.DiscoveryTests.test_explicit_and_path) ... ok
+test_explicit_is_authoritative (test_core.DiscoveryTests.test_explicit_is_authoritative) ... ok
+test_missing_and_invalid (test_core.DiscoveryTests.test_missing_and_invalid) ... ok
+test_real_executable_with_spaces (test_core.DiscoveryTests.test_real_executable_with_spaces) ... ok
+test_nearest_marker_and_fallback (test_core.RootTests.test_nearest_marker_and_fallback) ... ok
+test_files (test_core.SelectionTests.test_files) ... ok
+test_additional_loose_root_is_advertised_once (test_plugin.PluginTests.test_additional_loose_root_is_advertised_once) ... ok
+test_as_association_and_user_override (test_plugin.PluginTests.test_as_association_and_user_override) ... ok
+test_bad_path_becomes_visible_start_error (test_plugin.PluginTests.test_bad_path_becomes_visible_start_error) ... ok
+test_environment_path_overrides (test_plugin.PluginTests.test_environment_path_overrides) ... ok
+test_filename_syntax_pairing (test_plugin.PluginTests.test_filename_syntax_pairing) ... ok
+test_install_actions_and_cancel (test_plugin.PluginTests.test_install_actions_and_cancel) ... ok
+test_loose_file_gets_root (test_plugin.PluginTests.test_loose_file_gets_root) ... ok
+test_registration_and_teardown (test_plugin.PluginTests.test_registration_and_teardown) ... ok
+test_selector_excludes_other_toml_even_with_toml_scope (test_plugin.PluginTests.test_selector_excludes_other_toml_even_with_toml_scope) ... ok
+test_start_sets_executable_keeps_init_options_and_workspace (test_plugin.PluginTests.test_start_sets_executable_keeps_init_options_and_workspace) ... ok
+test_includes_cpp_without_incompatible_inheritance (test_syntax.SyntaxTests.test_includes_cpp_without_incompatible_inheritance) ... ok
+
+----------------------------------------------------------------------
+Ran 18 tests in 0.019s
+
+OK

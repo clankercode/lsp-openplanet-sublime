@@ -62,7 +62,7 @@ class RootTests(unittest.TestCase):
     def test_nearest_marker_and_fallback(self):
         for marker in ("info.toml", ".openplanet-lsp.toml"):
             with self.subTest(marker=marker), tempfile.TemporaryDirectory() as tmp:
-                root = Path(tmp)
+                root = Path(tmp).resolve()
                 source = root / "plugin" / "src"
                 source.mkdir(parents=True)
                 self.assertEqual(project_root(str(source / "Main.as")), str(source))
