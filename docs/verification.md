@@ -9,7 +9,7 @@ Verified on Linux x86_64 on 2026-10-19. This is evidence for the surfaces listed
 - openplanet-lsp **0.8.0**, existing installed release `/home/xertrov/.local/bin/openplanet-lsp --lsp`. No full server builds were run.
 - Python 3.14 local unit tests: **18 tests passed**. Package validator also parses all Python as Python 3.8 syntax and checks shipped JSON, command, selectors, empty init options, and complete license texts.
 - Official `st_package_reviewer` **1.4.0** from commit `406c008ab8551a3eda62c5388bdd0ab1dba5e9f9`, with the SublimeLSP menu checker: **no failures, no warnings**. [Receipt](evidence/package-review.txt).
-- [Unit-test receipt](evidence/unit-tests.txt). CI uses Python 3.8 and 3.13 on Linux, macOS, and Windows; the CI workflow is separate from this local execution.
+- [Unit-test receipt](evidence/unit-tests.txt). All six CI jobs passed on Linux, macOS, and Windows using Python 3.8 and 3.13: [run 39217109786](https://github.com/clankercode/lsp-openplanet-sublime/actions/runs/39217109786), commit `9b659f951a605b1bfb3c769bbce8048a8de3d0d7`. [Machine-readable CI receipt](evidence/github-ci.json). The CI workflow tests package logic and metadata, not native GUI interaction.
 
 ## Real editor
 

@@ -1,0 +1,44 @@
+{
+  "conclusion": "success",
+  "headSha": "9b659f951a605b1bfb3c769bbce8048a8de3d0d7",
+  "jobs": [
+    {
+      "name": "test (windows-latest, 3.13)",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/clankercode/lsp-openplanet-sublime/actions/runs/39217109786/job/117943431846"
+    },
+    {
+      "name": "test (windows-latest, 3.8)",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/clankercode/lsp-openplanet-sublime/actions/runs/39217109786/job/117943432133"
+    },
+    {
+      "name": "test (ubuntu-latest, 3.8)",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/clankercode/lsp-openplanet-sublime/actions/runs/39217109786/job/117943432174"
+    },
+    {
+      "name": "test (macos-latest, 3.8)",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/clankercode/lsp-openplanet-sublime/actions/runs/39217109786/job/117943432202"
+    },
+    {
+      "name": "test (ubuntu-latest, 3.13)",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/clankercode/lsp-openplanet-sublime/actions/runs/39217109786/job/117943432221"
+    },
+    {
+      "name": "test (macos-latest, 3.13)",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/clankercode/lsp-openplanet-sublime/actions/runs/39217109786/job/117943432384"
+    }
+  ],
+  "status": "completed",
+  "url": "https://github.com/clankercode/lsp-openplanet-sublime/actions/runs/39217109786"
+}
