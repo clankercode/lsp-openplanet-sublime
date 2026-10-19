@@ -54,8 +54,8 @@ class DiscoveryTests(unittest.TestCase):
             executable = Path(tmp) / ("openplanet-lsp.exe" if os.name == "nt" else "openplanet-lsp")
             executable.write_text("#!/bin/sh\nexit 0\n")
             executable.chmod(0o755)
-            self.assertEqual(discover_server(str(executable)), str(executable))
-            self.assertEqual(discover_server(path=tmp), str(executable))
+            self.assertEqual(os.path.normcase(discover_server(str(executable))), os.path.normcase(str(executable)))
+            self.assertEqual(os.path.normcase(discover_server(path=tmp)), os.path.normcase(str(executable)))
 
 
 class RootTests(unittest.TestCase):

@@ -40,3 +40,9 @@ Add the following entry to `repository.json` under `packages`, sorted as `LSP-op
 Fork the registry using your GitHub account, branch from its `main`, commit only this entry, and open a PR titled **Add LSP-openplanet**. Explain that it requires LSP 2.16+, discovers an installed server, and contains full licenses plus real-editor test evidence. The registry's review bots may comment automatically. The submission status/URL is recorded below after publication.
 
 End users must install LSP separately; Package Control libraries are not a mechanism for installing the LSP editor package. `LSP-openplanet` uses no extra Python libraries beyond LSP itself and the standard library.
+
+## Submission status
+
+Submitted [sublimelsp/repository#189](https://github.com/sublimelsp/repository/pull/189) on 2026-10-19. It remains subject to registry maintainer review. Public source and tagged releases are available now; manual installation works before registry acceptance.
+
+Documentation is published at https://clankercode.github.io/lsp-openplanet-sublime/ from `main:/docs`.
