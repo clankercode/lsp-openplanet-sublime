@@ -1,6 +1,31 @@
-[{"id":"preferences","children":[{"id":"package-settings","children":[
-    {"caption":"LSP-openplanet","children":[
-        {"caption":"Settings","command":"edit_settings","args":{"base_file":"${packages}/LSP-openplanet/LSP-openplanet.sublime-settings"}},
-        {"caption":"Install Server / Help","command":"lsp_openplanet_install_server"}
-    ]}
-]}]}]
+[
+    {
+        "id": "preferences",
+        "children": [
+            {
+                "id": "package-settings",
+                "children": [
+                    {
+                        "id": "lsp-settings",
+                        "caption": "LSP",
+                        "children": [
+                            {
+                                "id": "lsp-servers",
+                                "caption": "Servers",
+                                "children": [
+                                    {
+                                        "caption": "LSP-openplanet",
+                                        "command": "edit_settings",
+                                        "args": {
+                                            "base_file": "${packages}/LSP-openplanet/LSP-openplanet.sublime-settings"
+                                        }
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+]

@@ -8,7 +8,7 @@ import types
 import unittest
 from unittest.mock import Mock, patch
 
-import core
+from lib import core
 
 
 class Base:
@@ -35,7 +35,7 @@ lsp.WorkspaceFolder = types.SimpleNamespace(from_path=lambda path: types.SimpleN
 package = types.ModuleType("fixture_package")
 package.__path__ = []
 with patch.dict(sys.modules, {"sublime": sublime, "sublime_plugin": sublime_plugin, "LSP": types.ModuleType("LSP"),
-                              "LSP.plugin": lsp, "fixture_package": package, "fixture_package.core": core}):
+                              "LSP.plugin": lsp, "fixture_package": package, "fixture_package.lib": types.ModuleType("fixture_package.lib"), "fixture_package.lib.core": core}):
     spec = importlib.util.spec_from_file_location("fixture_package.plugin", Path(__file__).resolve().parents[1] / "plugin.py")
     plugin = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(plugin)

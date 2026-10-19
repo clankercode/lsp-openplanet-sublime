@@ -8,7 +8,7 @@ from pathlib import Path
 root = Path(__file__).resolve().parents[1]
 for path in root.rglob("*.py"):
     ast.parse(path.read_text(), feature_version=(3, 8))
-for name in ("LSP-openplanet.sublime-settings", "LSP-openplanet.sublime-commands", "Main.sublime-menu", "messages.json", "package-metadata.json"):
+for name in ("LSP-openplanet.sublime-settings", "LSP-openplanet.sublime-commands", "Main.sublime-menu", "messages.json"):
     json.loads((root / name).read_text())
 settings = json.loads((root / "LSP-openplanet.sublime-settings").read_text())
 assert settings["command"] == ["$openplanet_server", "--lsp"]

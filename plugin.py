@@ -7,7 +7,7 @@ import sublime
 import sublime_plugin
 from LSP.plugin import LspPlugin, PluginStartError, WorkspaceFolder, uri_to_filename
 
-from .core import accepts_file, discover_server, project_root
+from .lib.core import accepts_file, discover_server, project_root
 
 
 class OpenplanetPlugin(LspPlugin):
@@ -75,7 +75,7 @@ class LspOpenplanetInstallServerCommand(sublime_plugin.WindowCommand):
             webbrowser.open("https://github.com/clankercode/lsp-openplanet-sublime#install")
         elif index == 2:
             self.window.run_command("edit_settings", {
-                "base_file": "${packages}/LSP-openplanet/LSP-openplanet.sublime-settings"})
+                "base_file": "${packages}/LSP-openplanet/LSP-openplanet.sublime-settings", "default": "{}"})
 
 
 def associate_source(view):

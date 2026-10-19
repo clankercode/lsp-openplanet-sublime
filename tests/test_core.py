@@ -5,7 +5,7 @@ import tempfile
 import unittest
 from unittest.mock import patch
 
-from core import accepts_file, discover_server, project_root
+from lib.core import accepts_file, discover_server, project_root
 
 
 class SelectionTests(unittest.TestCase):

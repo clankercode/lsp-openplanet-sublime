@@ -1,8 +1,0 @@
-{
-  "name": "LSP-openplanet",
-  "description": "Openplanet AngelScript language support for Sublime Text via LSP",
-  "url": "https://github.com/clankercode/lsp-openplanet-sublime",
-  "version": "0.1.0",
-  "platforms": ["*"],
-  "sublime_text": ">=4200"
-}
