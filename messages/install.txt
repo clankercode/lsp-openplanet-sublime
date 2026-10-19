@@ -1,0 +1,6 @@
+LSP-openplanet
+==============
+Install the LSP (2.16 or newer) and TOML packages with Package Control.
+Install the server: npm install -g openplanet-lsp
+Or run LSP-openplanet: Install Server / Help for Cargo and release downloads.
+Open your plugin folder (containing info.toml), then open an .as file.

@@ -1,0 +1,20 @@
+%YAML 1.2
+---
+# SPDX-License-Identifier: Unlicense OR CC0-1.0
+name: AngelScript
+scope: source.angelscript
+version: 2
+file_extensions:
+  - as
+extends: Packages/C++/C++.sublime-syntax
+contexts:
+  main:
+    - match: '\b(funcdef|import|from|interface|mixin|shared|external)\b'
+      scope: keyword.declaration.angelscript
+    - match: '\b(cast)(?=\s*<)'
+      scope: keyword.operator.angelscript
+    - match: '@'
+      scope: storage.modifier.handle.angelscript
+    - match: '\b(in|out|inout)\b'
+      scope: storage.modifier.angelscript
+    - include: scope:source.c++

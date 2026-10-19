@@ -1,0 +1,9 @@
+{
+    "enabled": true,
+    "command": ["$openplanet_server", "--lsp"],
+    "selector": "source.angelscript | source.toml",
+    "schemes": ["file"],
+    "server_path": "",
+    "initialization_options": {},
+    "settings": {}
+}

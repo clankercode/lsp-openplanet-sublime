@@ -1,0 +1,6 @@
+[{"id":"preferences","children":[{"id":"package-settings","children":[
+    {"caption":"LSP-openplanet","children":[
+        {"caption":"Settings","command":"edit_settings","args":{"base_file":"${packages}/LSP-openplanet/LSP-openplanet.sublime-settings"}},
+        {"caption":"Install Server / Help","command":"lsp_openplanet_install_server"}
+    ]}
+]}]}]

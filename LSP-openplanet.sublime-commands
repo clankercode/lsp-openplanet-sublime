@@ -1,0 +1,6 @@
+[
+    {"caption": "LSP-openplanet: Install Server / Help", "command": "lsp_openplanet_install_server"},
+    {"caption": "Preferences: LSP-openplanet Settings", "command": "edit_settings", "args": {
+        "base_file": "${packages}/LSP-openplanet/LSP-openplanet.sublime-settings"
+    }}
+]
