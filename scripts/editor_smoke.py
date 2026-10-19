@@ -16,7 +16,7 @@ WINDOW = None
 ORIGINAL = None
 
 
-class OpenplanetSmokeReplaceCommand(sublime_plugin.TextCommand):
+class LspOpenplanetSmokeReplaceCommand(sublime_plugin.TextCommand):
     def run(self, edit, text):
         self.view.replace(edit, sublime.Region(0, self.view.size()), text)
 
@@ -40,7 +40,7 @@ def later(callback, delay=2500):
             RESULT['error'] = traceback.format_exc()
             OUTPUT.write_text(json.dumps(RESULT, indent=2))
             if SOURCE is not None and ORIGINAL is not None:
-                SOURCE.run_command('openplanet_smoke_replace', {'text': ORIGINAL})
+                SOURCE.run_command('lsp_openplanet_smoke_replace', {'text': ORIGINAL})
     sublime.set_timeout(safe, delay)
 
 
@@ -59,7 +59,7 @@ def begin():
     RESULT['sublime_version'] = sublime.version()
     RESULT['before'] = record()
     require(any(d['message'] == 'undefined identifier `mesage`' for b in RESULT['before'] for d in b['diagnostics']), 'Expected initial real diagnostic')
-    SOURCE.run_command('openplanet_smoke_replace', {'text': ORIGINAL.replace('print(mesage)', 'print(message)')})
+    SOURCE.run_command('lsp_openplanet_smoke_replace', {'text': ORIGINAL.replace('print(mesage)', 'print(message)')})
     later(corrected)
 
 
@@ -67,7 +67,7 @@ def corrected():
     RESULT['corrected'] = record()
     require(bool(RESULT['corrected']), 'Expected live corrected buffer')
     require(not any('mesage' in d['message'] for b in RESULT['corrected'] for d in b['diagnostics']), 'Typo diagnostic did not clear')
-    SOURCE.run_command('openplanet_smoke_replace', {'text': ORIGINAL})
+    SOURCE.run_command('lsp_openplanet_smoke_replace', {'text': ORIGINAL})
     manifest = str(Path(SOURCE.file_name()).with_name('info.toml'))
     WINDOW.open_file(manifest)
     unrelated = Path('/tmp/lsp-sublime-unrelated.toml')
