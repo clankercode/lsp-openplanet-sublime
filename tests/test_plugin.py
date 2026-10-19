@@ -28,6 +28,7 @@ sublime_plugin.WindowCommand = object
 sublime_plugin.EventListener = object
 sublime.windows = lambda: []
 lsp = types.ModuleType("LSP.plugin")
+lsp.uri_to_filename = lambda uri: uri.removeprefix("file://")
 lsp.LspPlugin = Base
 lsp.PluginStartError = StartError
 lsp.WorkspaceFolder = types.SimpleNamespace(from_path=lambda path: types.SimpleNamespace(path=path))
@@ -40,16 +41,16 @@ with patch.dict(sys.modules, {"sublime": sublime, "sublime_plugin": sublime_plug
     spec.loader.exec_module(plugin)
 
 
-class Config(dict):
+class Config:
     def __init__(self, **kwargs):
-        super().__init__(**kwargs)
+        self.root_settings = kwargs
         self.env = {}
         self.initialization_options = {}
 
 
 def context(filename, folders=None, **settings):
     return types.SimpleNamespace(configuration=Config(**settings), variables={"home": "/test"},
-        view=types.SimpleNamespace(file_name=lambda: filename), scope_matches=True,
+        view=types.SimpleNamespace(file_name=lambda: filename, syntax=lambda: types.SimpleNamespace(scope="source.toml" if filename and filename.endswith(".toml") else "source.angelscript")), scope_matches=True,
         workspace_folders=[] if folders is None else folders, working_directory=None)
 
 
@@ -83,6 +84,29 @@ class PluginTests(unittest.TestCase):
             self.assertEqual(ctx.working_directory, tmp)
             self.assertEqual(ctx.configuration.initialization_options, {})
 
+    def test_filename_syntax_pairing(self):
+        for filename in ("Main.as", "info.toml", "unrelated.toml"):
+            for scope in ("source.angelscript", "source.toml", "source.actionscript"):
+                with self.subTest(filename=filename, scope=scope):
+                    ctx = context(filename)
+                    ctx.view.syntax = lambda: types.SimpleNamespace(scope=scope)
+                    expected = (filename == "Main.as" and scope == "source.angelscript") or (filename == "info.toml" and scope == "source.toml")
+                    self.assertEqual(plugin.OpenplanetPlugin.is_applicable_async(ctx), expected)
+
+    def test_additional_loose_root_is_advertised_once(self):
+        instance = plugin.OpenplanetPlugin()
+        session = Mock()
+        session.window.folders.return_value = []
+        session.get_workspace_folders.return_value = [types.SimpleNamespace(path="/first")]
+        instance.weaksession = lambda: session
+        with patch.object(plugin, "uri_to_filename", return_value="/second/Main.as"), patch.object(plugin, "project_root", return_value="/second"):
+            instance.on_pre_send_notification_async({"method":"textDocument/didOpen", "params":{"textDocument":{"uri":"file:///second/Main.as"}}})
+        self.assertEqual(session.update_folders.call_args.args[0][-1].path, "/second")
+        session.update_folders.reset_mock()
+        with patch.object(plugin, "uri_to_filename", return_value="/first/Main.as"), patch.object(plugin, "project_root", return_value="/first"):
+            instance.on_pre_send_notification_async({"method":"textDocument/didOpen", "params":{"textDocument":{"uri":"file:///first/Main.as"}}})
+        session.update_folders.assert_not_called()
+
     def test_bad_path_becomes_visible_start_error(self):
         with patch.object(plugin, "discover_server", side_effect=ValueError("bad explicit path")):
             with self.assertRaisesRegex(StartError, "bad explicit path"):
@@ -94,7 +118,8 @@ class PluginTests(unittest.TestCase):
             ctx.configuration.env = {"PATH": override}
             with patch.object(plugin, "discover_server", return_value="/server") as resolve:
                 plugin.OpenplanetPlugin.on_pre_start_async(ctx)
-            expected = "/test/bin" if isinstance(override, str) else plugin.os.pathsep.join(["/test/bin", "/extra", plugin.os.environ.get("PATH", "")])
+            expected = plugin.os.pathsep.join((["/test/bin"] if isinstance(override, str) else ["/test/bin", "/extra"]) + [plugin.os.environ.get("PATH", "")])
+            self.assertIsInstance(ctx.configuration.env["PATH"], str)
             self.assertEqual(resolve.call_args.kwargs["path"], expected)
 
     def test_as_association_and_user_override(self):
