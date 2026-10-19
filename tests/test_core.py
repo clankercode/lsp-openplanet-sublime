@@ -20,7 +20,7 @@ class SelectionTests(unittest.TestCase):
 
 class DiscoveryTests(unittest.TestCase):
     def test_explicit_is_authoritative(self):
-        with patch("core.shutil.which", return_value=None) as which:
+        with patch("lib.core.shutil.which", return_value=None) as which:
             with self.assertRaisesRegex(ValueError, "Configured server_path"):
                 discover_server("/bad/path", path="/good")
             which.assert_called_once_with("/bad/path", path="/good")
@@ -28,21 +28,21 @@ class DiscoveryTests(unittest.TestCase):
     def test_explicit_and_path(self):
         for explicit in ("/opt/bin/openplanet-lsp", "openplanet-lsp", "C:/bin/openplanet-lsp.exe"):
             with self.subTest(explicit=explicit):
-                with patch("core.shutil.which", return_value=explicit):
+                with patch("lib.core.shutil.which", return_value=explicit):
                     self.assertEqual(discover_server(explicit), explicit)
-        with patch("core.shutil.which", return_value="/path/bin/openplanet-lsp"):
+        with patch("lib.core.shutil.which", return_value="/path/bin/openplanet-lsp"):
             self.assertEqual(discover_server(), "/path/bin/openplanet-lsp")
 
     def test_default_locations(self):
         for folder in (".cargo/bin", ".local/bin", "AppData/Roaming/npm"):
             with self.subTest(folder=folder):
                 location = str(Path("/home/test") / folder)
-                with patch("core.shutil.which", side_effect=lambda command, path=None:
+                with patch("lib.core.shutil.which", side_effect=lambda command, path=None:
                            location + "/openplanet-lsp" if path == location else None):
                     self.assertEqual(discover_server(path="", home="/home/test"), location + "/openplanet-lsp")
 
     def test_missing_and_invalid(self):
-        with patch("core.shutil.which", return_value=None):
+        with patch("lib.core.shutil.which", return_value=None):
             with self.assertRaisesRegex(ValueError, "Install Server / Help"):
                 discover_server(home="/missing")
         for bad in ([], None, 123):

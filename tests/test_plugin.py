@@ -28,7 +28,7 @@ sublime_plugin.WindowCommand = object
 sublime_plugin.EventListener = object
 sublime.windows = lambda: []
 lsp = types.ModuleType("LSP.plugin")
-lsp.uri_to_filename = lambda uri: uri.removeprefix("file://")
+lsp.uri_to_filename = lambda uri: uri[7:]
 lsp.LspPlugin = Base
 lsp.PluginStartError = StartError
 lsp.WorkspaceFolder = types.SimpleNamespace(from_path=lambda path: types.SimpleNamespace(path=path))
