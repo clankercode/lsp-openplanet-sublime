@@ -44,4 +44,6 @@ A temporary harness reads LSP's actual session/buffer diagnostics. [`scripts/edi
 
 ## Review corrections
 
+The clean-start smoke also confirms the source is sent with `language_id: angelscript`. A symlinked temporary-directory run (`TMPDIR=/proc/self/root/tmp`) passed all 18 tests after resolving expected test paths, covering the macOS `/var` alias behavior.
+
 Real editor testing found mixed-version syntax inheritance; a red/green regression test was added and the grammar now includes the built-in C++ scope. Independent API review found and fixed `ClientConfig` access, PATH normalization, crossed syntax/file selection, and advertising additional loose roots. The local registry checker led to moving shared code into `lib/`, removing generated Package Control metadata from source, and aligning the settings menu.

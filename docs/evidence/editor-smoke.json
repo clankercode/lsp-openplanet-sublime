@@ -3,7 +3,7 @@
   "before": [
     {
       "uri": "file:///home/xertrov/src/lsp-openplanet-sublime/examples/diagnostics/Main.as",
-      "language_id": "plaintext",
+      "language_id": "angelscript",
       "diagnostics": [
         {
           "code": "unused-declaration",
@@ -48,14 +48,14 @@
   "corrected": [
     {
       "uri": "file:///home/xertrov/src/lsp-openplanet-sublime/examples/diagnostics/Main.as",
-      "language_id": "plaintext",
+      "language_id": "angelscript",
       "diagnostics": []
     }
   ],
   "final": [
     {
       "uri": "file:///home/xertrov/src/lsp-openplanet-sublime/examples/diagnostics/Main.as",
-      "language_id": "plaintext",
+      "language_id": "angelscript",
       "diagnostics": [
         {
           "code": "unused-declaration",
