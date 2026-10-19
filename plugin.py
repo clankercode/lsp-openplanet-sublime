@@ -54,7 +54,24 @@ class LspOpenplanetInstallServerCommand(sublime_plugin.WindowCommand):
                 "base_file": "${packages}/LSP-openplanet/LSP-openplanet.sublime-settings"})
 
 
+def associate_source(view):
+    filename = view.file_name()
+    syntax = view.syntax()
+    if filename and filename.lower().endswith(".as") and (
+        syntax is None or syntax.scope in ("source.actionscript", "text.plain")
+    ):
+        view.assign_syntax("Packages/LSP-openplanet/AngelScript.sublime-syntax")
+
+
+class OpenplanetSyntaxListener(sublime_plugin.EventListener):
+    def on_load(self, view):
+        associate_source(view)
+
+
 def plugin_loaded():
+    for window in sublime.windows():
+        for view in window.views():
+            associate_source(view)
     OpenplanetPlugin.register()
 
 

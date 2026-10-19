@@ -25,6 +25,8 @@ sublime = types.ModuleType("sublime")
 sublime.expand_variables = lambda value, variables: [sublime.expand_variables(x, variables) for x in value] if isinstance(value, list) else value.replace("$home", variables.get("home", ""))
 sublime_plugin = types.ModuleType("sublime_plugin")
 sublime_plugin.WindowCommand = object
+sublime_plugin.EventListener = object
+sublime.windows = lambda: []
 lsp = types.ModuleType("LSP.plugin")
 lsp.LspPlugin = Base
 lsp.PluginStartError = StartError
@@ -94,6 +96,17 @@ class PluginTests(unittest.TestCase):
                 plugin.OpenplanetPlugin.on_pre_start_async(ctx)
             expected = "/test/bin" if isinstance(override, str) else plugin.os.pathsep.join(["/test/bin", "/extra", plugin.os.environ.get("PATH", "")])
             self.assertEqual(resolve.call_args.kwargs["path"], expected)
+
+    def test_as_association_and_user_override(self):
+        for filename, scope, expected in (("Main.as", "source.actionscript", True),
+                ("Main.AS", "text.plain", True), ("Main.as", "source.angelscript", False),
+                ("Main.as", "source.user-custom", False), ("info.toml", "source.toml", False)):
+            with self.subTest(filename=filename, scope=scope):
+                view = Mock()
+                view.file_name.return_value = filename
+                view.syntax.return_value = types.SimpleNamespace(scope=scope)
+                plugin.associate_source(view)
+                self.assertEqual(view.assign_syntax.called, expected)
 
     def test_registration_and_teardown(self):
         with patch.object(Base, "register", create=True) as register, patch.object(Base, "unregister", create=True) as unregister:

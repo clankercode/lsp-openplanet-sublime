@@ -6,7 +6,6 @@ scope: source.angelscript
 version: 2
 file_extensions:
   - as
-extends: Packages/C++/C++.sublime-syntax
 contexts:
   main:
     - match: '\b(funcdef|import|from|interface|mixin|shared|external)\b'
